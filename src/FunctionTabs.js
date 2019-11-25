@@ -5,8 +5,10 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
+import MeetingRoomOutlinedIcon from '@material-ui/icons/MeetingRoomOutlined';
+import NextWeekOutlinedIcon from '@material-ui/icons/NextWeekOutlined';
 import CheckInForm from './CheckInForm';
+import CheckOutForm from './CheckOutForm';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -76,14 +78,22 @@ export default function ScrollableTabsButtonForce() {
         textColor="primary"
         centered
       >
-        <Tab label="Check-In" icon={<LockOutlinedIcon />} {...a11yProps(0)} />
-        <Tab label="Check-Out" icon={<LockOutlinedIcon />} {...a11yProps(1)} />
+        <Tab
+          label="Check-In"
+          icon={<MeetingRoomOutlinedIcon />}
+          {...a11yProps(0)}
+        />
+        <Tab
+          label="Check-Out"
+          icon={<NextWeekOutlinedIcon />}
+          {...a11yProps(1)}
+        />
       </Tabs>
       <TabPanel value={value} index={0}>
         <CheckInForm />
       </TabPanel>
       <TabPanel value={value} index={1}>
-        Item Two
+        <CheckOutForm />
       </TabPanel>
     </div>
   );

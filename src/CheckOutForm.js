@@ -3,7 +3,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import InputAdornment from '@material-ui/core/InputAdornment';
-import Autocomplete from '@material-ui/lab/AutoComplete';
+import FormLabel from '@material-ui/core/FormLabel';
+import Typography from '@material-ui/core/Typography';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -31,64 +32,26 @@ function handleResult(event) {
   console.log(event.target.phone.value);
 }
 
-export default function CheckInForm() {
+export default function CheckOutForm() {
   const classes = useStyles();
-
-  const defaultProps = {
-    options: top100Films,
-    getOptionLabel: option => option.title,
-  };
 
   return (
     <form className={classes.form} onSubmit={handleResult}>
-      <TextField
-        variant="outlined"
-        margin="normal"
-        required
-        fullWidth
-        id="name"
-        label="Name"
-        name="name"
-        autoComplete="name"
-        autoFocus
-      />
-      <TextField
-        variant="outlined"
-        margin="normal"
-        required
-        fullWidth
-        id="email"
-        label="Email Address"
-        name="email"
-        autoComplete="email"
-      />
+      <FormLabel>
+        <Typography>Phone Number</Typography>
+      </FormLabel>
       <TextField
         variant="outlined"
         margin="normal"
         required
         fullWidth
         name="phone"
-        label="Phone Number"
         type="number"
         id="phone"
         autoComplete="phone"
         InputProps={{
           startAdornment: <InputAdornment position="start">+91</InputAdornment>,
         }}
-      />
-      <Autocomplete
-        {...defaultProps}
-        id="host"
-        renderInput={params => (
-          <TextField
-            {...params}
-            label="Host"
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-          />
-        )}
       />
       <Button
         type="submit"
@@ -97,16 +60,8 @@ export default function CheckInForm() {
         color="primary"
         className={classes.submit}
       >
-        Check In @ The Cool Company
+        Check Out like a Boss!
       </Button>
     </form>
   );
 }
-
-const top100Films = [
-  { title: 'Cool CEO' },
-  { title: 'Geek Tech Lead' },
-  { title: 'Mighty HR' },
-  { title: 'Persistent Marketer' },
-  { title: 'Punny Social Media Manager' },
-];
