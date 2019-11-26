@@ -5,6 +5,7 @@ import Button from '@material-ui/core/Button';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import Autocomplete from '@material-ui/lab/AutoComplete';
 import fire from './fire';
+import { useSnackbar } from 'notistack';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -27,23 +28,6 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-function handleResult(event) {
-  event.preventDefault();
-  const data = event.target;
-  console.log(data.phone.value);
-  const timestamp = Date.now();
-  fire
-    .database()
-    .ref('check-ins/' + data.phone.value)
-    .set({
-      name: data.name.value,
-      phone: data.phone.value,
-      email: data.email.value,
-      checkin_ts: timestamp,
-      host: data.host.value,
-    });
-}
-
 export default function CheckInForm() {
   const classes = useStyles();
 
@@ -52,8 +36,44 @@ export default function CheckInForm() {
     getOptionLabel: option => option.title,
   };
 
+  const { enqueueSnackbar } = useSnackbar();
+
+  const handleClick = (message, variant) => {
+    enqueueSnackbar(message, {
+      anchorOrigin: {
+        horizontal: 'right',
+        vertical: 'bottom',
+      },
+      variant: variant,
+    });
+  };
+
+  const handleResult = event => {
+    event.preventDefault();
+    const data = event.target;
+    console.log(data.phone.value);
+    const timestamp = Date.now();
+    fire
+      .database()
+      .ref('check-ins/' + data.phone.value)
+      .set({
+        name: data.name.value,
+        phone: data.phone.value,
+        email: data.email.value,
+        checkin_ts: timestamp,
+        host: data.host.value,
+      })
+      .then(function() {
+        document.getElementById('checkin-form').reset();
+        handleClick(
+          'Thanks for checking into The Cool Company, see you around!',
+          'success',
+        );
+      });
+  };
+
   return (
-    <form className={classes.root} onSubmit={handleResult}>
+    <form id="checkin-form" className={classes.root} onSubmit={handleResult}>
       <TextField
         variant="standard"
         margin="normal"
