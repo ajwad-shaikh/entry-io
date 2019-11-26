@@ -4,6 +4,7 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import Autocomplete from '@material-ui/lab/AutoComplete';
+import fire from './fire';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -28,7 +29,19 @@ const useStyles = makeStyles(theme => ({
 
 function handleResult(event) {
   event.preventDefault();
-  console.log(event.target.phone.value);
+  const data = event.target;
+  console.log(data.phone.value);
+  const timestamp = Date.now();
+  fire
+    .database()
+    .ref('check-ins/' + data.phone.value)
+    .set({
+      name: data.name.value,
+      phone: data.phone.value,
+      email: data.email.value,
+      checkin_ts: timestamp,
+      host: data.host.value,
+    });
 }
 
 export default function CheckInForm() {

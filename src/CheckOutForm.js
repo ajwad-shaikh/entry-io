@@ -5,6 +5,7 @@ import Button from '@material-ui/core/Button';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import FormLabel from '@material-ui/core/FormLabel';
 import Typography from '@material-ui/core/Typography';
+import fire from './fire';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -29,7 +30,33 @@ const useStyles = makeStyles(theme => ({
 
 function handleResult(event) {
   event.preventDefault();
-  console.log(event.target.phone.value);
+  const data = event.target;
+  console.log(data.phone.value);
+  const timestamp = Date.now() + '_' + data.phone.value;
+  fire
+    .database()
+    .ref('check-ins/' + data.phone.value)
+    .once('value')
+    .then(function(snapshot) {
+      const details = {
+        name: snapshot.val().name,
+        email: snapshot.val().email,
+        host: snapshot.val().host,
+        checkin_ts: snapshot.val().checkin_ts,
+        checkout_ts: Date.now(),
+        phone: snapshot.val().phone,
+      };
+      fire
+        .database()
+        .ref('check-outs/' + details.phone)
+        .set(details)
+        .then(function() {
+          fire
+            .database()
+            .ref('check-ins/' + data.phone.value)
+            .set(null);
+        });
+    });
 }
 
 export default function CheckOutForm() {
