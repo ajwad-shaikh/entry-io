@@ -6,6 +6,7 @@ import InputAdornment from '@material-ui/core/InputAdornment';
 import Autocomplete from '@material-ui/lab/AutoComplete';
 import fire from './fire';
 import { useSnackbar } from 'notistack';
+import axios from 'axios';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -28,11 +29,13 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function CheckInForm() {
+export default function CheckInForm(props) {
   const classes = useStyles();
 
+  const [value, setValue] = React.useState('');
+
   const defaultProps = {
-    options: top100Films,
+    options: hostList,
     getOptionLabel: option => option.title,
   };
 
@@ -48,10 +51,22 @@ export default function CheckInForm() {
     });
   };
 
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+  };
+
+  const sendEmail = postData => {
+    const response = axios.post(
+      'https://us-central1-entry-io.cloudfunctions.net/function-1',
+      postData,
+      { headers: { 'Content-Type': 'application/json' } },
+    );
+    console.log(response);
+  };
+
   const handleResult = event => {
     event.preventDefault();
     const data = event.target;
-    console.log(data.phone.value);
     const timestamp = Date.now();
     fire
       .database()
@@ -64,11 +79,28 @@ export default function CheckInForm() {
         host: data.host.value,
       })
       .then(function() {
+        const postData = {
+          dest: 'host',
+          host: data.host.value,
+          guest: data.name.value,
+          phone: data.phone.value,
+          guestEmail: data.email.value,
+          hostEmail: '',
+          checkinTime: timestamp,
+        };
+        hostList.find((host, i) => {
+          if (host.title === data.host.value) {
+            postData.hostEmail = host.email;
+            return true; // stop searching
+          } else return false;
+        });
+        sendEmail(postData);
         document.getElementById('checkin-form').reset();
         handleClick(
           'Thanks for checking into The Cool Company, see you around!',
           'success',
         );
+        handleChange(1, '');
       });
   };
 
@@ -112,6 +144,8 @@ export default function CheckInForm() {
       <Autocomplete
         {...defaultProps}
         id="host"
+        value={value}
+        onChange={handleChange}
         renderInput={params => (
           <TextField
             {...params}
@@ -136,10 +170,10 @@ export default function CheckInForm() {
   );
 }
 
-const top100Films = [
-  { title: 'Cool CEO' },
-  { title: 'Geek Tech Lead' },
-  { title: 'Mighty HR' },
-  { title: 'Persistent Marketer' },
-  { title: 'Punny Social Media Manager' },
+const hostList = [
+  { title: 'Cool CEO', email: 'shaikhajwad10@gmail.com' },
+  { title: 'Geek Tech Lead', email: 'shaikhajwad10@gmail.com' },
+  { title: 'Mighty HR', email: 'shaikhajwad10@gmail.com' },
+  { title: 'Persistent Marketer', email: 'shaikhajwad10@gmail.com' },
+  { title: 'Punny Social Media Manager', email: 'shaikhajwad10@gmail.com' },
 ];
