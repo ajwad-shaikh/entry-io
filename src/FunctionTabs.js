@@ -46,19 +46,6 @@ const useStyles = makeStyles(theme => ({
     width: '100%',
     backgroundColor: theme.palette.background.paper,
   },
-  form: {
-    width: '100%', // Fix IE 11 issue.
-    marginTop: theme.spacing(1),
-  },
-  submit: {
-    margin: theme.spacing(3, 0, 2),
-  },
-  paper: {
-    margin: theme.spacing(2, 4),
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-  },
 }));
 
 export default function ScrollableTabsButtonForce() {
@@ -70,7 +57,7 @@ export default function ScrollableTabsButtonForce() {
   };
 
   return (
-    <div className={classes.paper}>
+    <div className={classes.root}>
       <Tabs
         value={value}
         onChange={handleChange}

@@ -32,7 +32,7 @@ function handleResult(event) {
   event.preventDefault();
   const data = event.target;
   console.log(data.phone.value);
-  const timestamp = Date.now() + '_' + data.phone.value;
+  const timestamp = Date.now();
   fire
     .database()
     .ref('check-ins/' + data.phone.value)
@@ -43,12 +43,12 @@ function handleResult(event) {
         email: snapshot.val().email,
         host: snapshot.val().host,
         checkin_ts: snapshot.val().checkin_ts,
-        checkout_ts: Date.now(),
+        checkout_ts: timestamp,
         phone: snapshot.val().phone,
       };
       fire
         .database()
-        .ref('check-outs/' + details.phone)
+        .ref('check-outs/' + details.checkout_ts + '_' + details.phone)
         .set(details)
         .then(function() {
           fire
@@ -63,12 +63,12 @@ export default function CheckOutForm() {
   const classes = useStyles();
 
   return (
-    <form className={classes.form} onSubmit={handleResult}>
+    <form className={classes.root} onSubmit={handleResult}>
       <FormLabel>
         <Typography>Phone Number</Typography>
       </FormLabel>
       <TextField
-        variant="outlined"
+        variant="standard"
         margin="normal"
         required
         fullWidth

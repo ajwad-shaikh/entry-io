@@ -53,9 +53,9 @@ export default function CheckInForm() {
   };
 
   return (
-    <form className={classes.form} onSubmit={handleResult}>
+    <form className={classes.root} onSubmit={handleResult}>
       <TextField
-        variant="outlined"
+        variant="standard"
         margin="normal"
         required
         fullWidth
@@ -66,7 +66,7 @@ export default function CheckInForm() {
         autoFocus
       />
       <TextField
-        variant="outlined"
+        variant="standard"
         margin="normal"
         required
         fullWidth
@@ -76,7 +76,7 @@ export default function CheckInForm() {
         autoComplete="email"
       />
       <TextField
-        variant="outlined"
+        variant="standard"
         margin="normal"
         required
         fullWidth
@@ -96,8 +96,8 @@ export default function CheckInForm() {
           <TextField
             {...params}
             label="Host"
-            variant="outlined"
-            margin="normal"
+            variant="standard"
+            margin="dense"
             required
             fullWidth
           />
@@ -105,9 +105,9 @@ export default function CheckInForm() {
       />
       <Button
         type="submit"
-        fullWidth
         variant="contained"
         color="primary"
+        fullWidth
         className={classes.submit}
       >
         Check In @ The Cool Company

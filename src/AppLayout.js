@@ -25,6 +25,13 @@ const useStyles = makeStyles(theme => ({
   root: {
     height: '100vh',
   },
+  header: {
+    marginTop: 20,
+    marginBottom: 20,
+  },
+  sub: {
+    marginBottom: 10,
+  },
   image: {
     backgroundImage: 'url(https://source.unsplash.com/random)',
     backgroundRepeat: 'no-repeat',
@@ -41,20 +48,10 @@ const useStyles = makeStyles(theme => ({
     flexDirection: 'column',
     alignItems: 'center',
   },
-  avatar: {
-    margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main,
-  },
-  form: {
-    width: '100%', // Fix IE 11 issue.
-    marginTop: theme.spacing(1),
-  },
-  submit: {
-    margin: theme.spacing(3, 0, 2),
-  },
   footer: {
-    marginTop: 'calc(5% + 60px)',
-    bottom: '0',
+    position: 'absolute',
+    bottom: 20,
+    overflow: 'hidden',
   },
 }));
 
@@ -65,16 +62,16 @@ export default function AppLayout() {
     <Grid container component="main" className={classes.root}>
       <CssBaseline />
       <Grid item xs={false} sm={4} md={7} className={classes.image} />
-      <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
+      <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6}>
         <div className={classes.paper}>
-          <Typography variant="h2" component="h1" center="center">
+          <Typography className={classes.header} variant="h2" center="center">
             entry.io
           </Typography>
-          <Typography variant="h6" component="h6" align="center">
-            <p>To manage entries @ The Cool Company</p>
+          <Typography className={classes.sub} variant="h5" align="center">
+            Entry Manager @ The Cool Company
           </Typography>
           <FunctionTabs />
-          <Box mt={5} className={classes.footer}>
+          <Box mt={3} className={classes.footer}>
             <Copyright />
           </Box>
         </div>
