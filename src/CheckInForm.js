@@ -68,6 +68,13 @@ export default function CheckInForm(props) {
     event.preventDefault();
     const data = event.target;
     const timestamp = Date.now();
+    var hostEmail = '';
+    hostList.find((host, i) => {
+      if (host.title === data.host.value) {
+        hostEmail = host.email;
+        return true; // stop searching
+      } else return false;
+    });
     fire
       .database()
       .ref('check-ins/' + data.phone.value)
@@ -77,6 +84,7 @@ export default function CheckInForm(props) {
         email: data.email.value,
         checkin_ts: timestamp,
         host: data.host.value,
+        host_email: hostEmail,
       })
       .then(function() {
         const postData = {
@@ -85,15 +93,9 @@ export default function CheckInForm(props) {
           guest: data.name.value,
           phone: data.phone.value,
           guestEmail: data.email.value,
-          hostEmail: '',
+          hostEmail: hostEmail,
           checkinTime: timestamp,
         };
-        hostList.find((host, i) => {
-          if (host.title === data.host.value) {
-            postData.hostEmail = host.email;
-            return true; // stop searching
-          } else return false;
-        });
         sendEmail(postData);
         document.getElementById('checkin-form').reset();
         handleClick(

@@ -7,6 +7,7 @@ import FormLabel from '@material-ui/core/FormLabel';
 import Typography from '@material-ui/core/Typography';
 import fire from './fire';
 import { useSnackbar } from 'notistack';
+import axios from 'axios';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -44,6 +45,15 @@ export default function CheckOutForm() {
     });
   };
 
+  const sendEmail = postData => {
+    const response = axios.post(
+      'https://us-central1-entry-io.cloudfunctions.net/function-1',
+      postData,
+      { headers: { 'Content-Type': 'application/json' } },
+    );
+    console.log(response);
+  };
+
   const handleResult = event => {
     event.preventDefault();
     const data = event.target;
@@ -64,6 +74,7 @@ export default function CheckOutForm() {
           name: snapshot.val().name,
           email: snapshot.val().email,
           host: snapshot.val().host,
+          hostEmail: snapshot.val().host_email,
           checkin_ts: snapshot.val().checkin_ts,
           checkout_ts: timestamp,
           phone: snapshot.val().phone,
@@ -79,6 +90,17 @@ export default function CheckOutForm() {
               .set(null);
           })
           .then(function() {
+            const postData = {
+              dest: 'guest',
+              host: snapshot.val().host,
+              guest: snapshot.val().name,
+              phone: snapshot.val().phone,
+              guestEmail: snapshot.val().email,
+              hostEmail: snapshot.val().host_email,
+              checkinTime: snapshot.val().checkin_ts,
+              checkoutTime: timestamp,
+            };
+            sendEmail(postData);
             document.getElementById('checkout-form').reset();
             return handleClick(
               'Thank you for visiting The Cool Company, you have been succesfully checked-out ;)',
