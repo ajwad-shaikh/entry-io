@@ -21,6 +21,7 @@ const useStyles = makeStyles(theme => ({
   },
   submit: {
     margin: theme.spacing(3, 0, 2),
+    textTransform: 'none',
   },
   paper: {
     margin: theme.spacing(2, 4),
@@ -103,7 +104,7 @@ export default function CheckOutForm() {
             sendEmail(postData);
             document.getElementById('checkout-form').reset();
             return handleClick(
-              'Thank you for visiting The Cool Company, you have been succesfully checked-out ;)',
+              'Thank you for visiting TheCoolCompany, you have been succesfully checked-out ;)',
               'success',
             );
           });
@@ -135,7 +136,7 @@ export default function CheckOutForm() {
         color="primary"
         className={classes.submit}
       >
-        Check Out like a Boss!
+        Check me Out!
       </Button>
     </form>
   );

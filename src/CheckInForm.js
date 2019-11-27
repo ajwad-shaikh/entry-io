@@ -20,6 +20,7 @@ const useStyles = makeStyles(theme => ({
   },
   submit: {
     margin: theme.spacing(3, 0, 2),
+    textTransform: 'none',
   },
   paper: {
     margin: theme.spacing(2, 4),
@@ -99,7 +100,7 @@ export default function CheckInForm(props) {
         sendEmail(postData);
         document.getElementById('checkin-form').reset();
         handleClick(
-          'Thanks for checking into The Cool Company, see you around!',
+          'Thanks for checking into TheCoolCompany, see you around!',
           'success',
         );
         handleChange(1, '');
@@ -166,7 +167,7 @@ export default function CheckInForm(props) {
         fullWidth
         className={classes.submit}
       >
-        Check In @ The Cool Company
+        Check-In at TheCoolCompany
       </Button>
     </form>
   );

@@ -7,14 +7,27 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import FunctionTabs from './FunctionTabs';
+import Icon from '@material-ui/core/Icon';
+import { loadCSS } from 'fg-loadcss';
 
 function Copyright() {
   return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {'Copyright © '}
-      <Link color="inherit" href="https://material-ui.com/">
-        Your Website
-      </Link>{' '}
+    <Typography variant="body1" color="textSecondary" align="center">
+      {'Made with  '}
+      <Icon className="fab fa-react" />
+      {'  '}
+      <Icon className="fab fa-github" />
+      {'  '}
+      <Icon className="fab fa-google" />
+      {'  '}
+      <Icon className="fab fa-node-js" />
+      {'  &  '}
+      <Icon className="fas fa-heart" />
+      {'  by '}
+      <Link color="inherit" href="https://ajwad-shaikh.github.io/">
+        <strong>Ajwad Shaikh</strong>
+      </Link>
+      {'  - '}
       {new Date().getFullYear()}
       {'.'}
     </Typography>
@@ -58,6 +71,13 @@ const useStyles = makeStyles(theme => ({
 export default function AppLayout() {
   const classes = useStyles();
 
+  React.useEffect(() => {
+    loadCSS(
+      'https://use.fontawesome.com/releases/v5.1.0/css/all.css',
+      document.querySelector('#font-awesome-css'),
+    );
+  }, []);
+
   return (
     <Grid container component="main" className={classes.root}>
       <CssBaseline />
@@ -68,7 +88,7 @@ export default function AppLayout() {
             entry.io
           </Typography>
           <Typography className={classes.sub} variant="h5" align="center">
-            Entry Manager @ The Cool Company
+            Chowkidaar at TheCoolCompany
           </Typography>
           <FunctionTabs />
           <Box mt={3} className={classes.footer}>
