@@ -1,8 +1,12 @@
 # entry-io
 
-## Chowkidaar at TheCoolCompany | A React-based Web Entry Management App for Smart Offices
+### Chowkidaar at TheCoolCompany | A React-based Web Entry Management App for Smart Offices
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app) and deployed to [entry-io.web.app](https://entry-io.web.app) with **Firebase Hosting**.
+
+## Tech Stack
+
+![React Firebase](https://miro.medium.com/max/3000/1*ytMIcp6uu6UIZpApG1LFYg.png)
 
 ## Project Description and Workflow
 
@@ -61,6 +65,8 @@ _entry-io is an entry management app for smart offices where hosts and guests ca
     ```
 - The app also deletes the guest reference from the `check-ins` collection that serves as a temporary collection to store details of guests who have checked-in but are left to check-out
 
+- The backend of the app, hosted as a **Firebase Cloud Function**, uses [SendGrid API](https://sendgrid.com/docs/API_Reference/index.html) to send emails to the host and the guest as mentioned in the workflow.
+
 ## Dependencies
 
 - `@material-ui/core: ^4.7.0`
@@ -78,7 +84,7 @@ _entry-io is an entry management app for smart offices where hosts and guests ca
 
 In the project directory, you can run:
 
-### `yarn start`
+### `yarn start` | `npm start`
 
 Runs the app in the development mode.<br />
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
@@ -86,16 +92,16 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 The page will reload if you make edits.<br />
 You will also see any lint errors in the console.
 
-### `yarn deploy`
+### `yarn deploy` | `npm deploy`
 
 Deploys the app to the Firebase Hosting. <br /> The app can then be viewed at [https://entry-io/web.app](https://entry-io.web.app)
 
-### `yarn test`
+### `yarn test` | `npm test`
 
 Launches the test runner in the interactive watch mode.<br />
 See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### `yarn build`
+### `yarn build` | `npm build`
 
 Builds the app for production to the `build` folder.<br />
 It correctly bundles React in production mode and optimizes the build for the best performance.
@@ -105,7 +111,7 @@ Your app is ready to be deployed!
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `yarn eject`
+### `yarn eject` | `npm eject`
 
 **Note: this is a one-way operation. Once you `eject`, you can’t go back!**
 

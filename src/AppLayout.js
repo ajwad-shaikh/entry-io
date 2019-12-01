@@ -46,7 +46,7 @@ const useStyles = makeStyles(theme => ({
     marginBottom: 10,
   },
   image: {
-    backgroundImage: 'url(https://source.unsplash.com/random)',
+    backgroundImage: 'url(https://picsum.photos/1000)',
     backgroundRepeat: 'no-repeat',
     backgroundColor:
       theme.palette.type === 'dark'
@@ -63,7 +63,7 @@ const useStyles = makeStyles(theme => ({
   },
   footer: {
     position: 'absolute',
-    bottom: 20,
+    bottom: 10,
     overflow: 'hidden',
   },
 }));

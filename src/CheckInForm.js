@@ -119,6 +119,9 @@ export default function CheckInForm(props) {
         name="name"
         autoComplete="name"
         autoFocus
+        inputProps={{
+          maxLength: 40,
+        }}
       />
       <TextField
         variant="standard"
@@ -129,6 +132,9 @@ export default function CheckInForm(props) {
         label="Email Address"
         name="email"
         autoComplete="email"
+        inputProps={{
+          maxLength: 40,
+        }}
       />
       <TextField
         variant="standard"
@@ -142,6 +148,10 @@ export default function CheckInForm(props) {
         autoComplete="phone"
         InputProps={{
           startAdornment: <InputAdornment position="start">+91</InputAdornment>,
+        }}
+        inputProps={{
+          maxLength: 10,
+          minLength: 10,
         }}
       />
       <Autocomplete
